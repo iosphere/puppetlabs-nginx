@@ -14,7 +14,20 @@
 #
 # This class file is not called directly
 class nginx::package::debian {
-  package { 'nginx':
-    ensure => present,
+
+  # Install nginx from the more up-to-date official repository
+  package {
+    'nginx':
+      ensure  => '1.4.0-1~lucid',
+      require => Apt::Source['nginx'],
   }
+
+  apt::source {
+    'nginx':
+      location   => 'http://nginx.org/packages/ubuntu/',
+      repos      => 'nginx',
+      key_source => 'http://nginx.org/keys/nginx_signing.key',
+      key        => '4C2C85E7',
+  }
+
 }
