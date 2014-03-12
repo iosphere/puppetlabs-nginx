@@ -37,7 +37,6 @@ class nginx (
   $service_restart    = $nginx::params::nx_service_restrart
 ) inherits nginx::params {
 
-  include stdlib
 
   class { 'nginx::package':
     notify => Class['nginx::service'],
@@ -52,7 +51,7 @@ class nginx (
     notify  		=> Class['nginx::service'],
   }
 
-  class { 'nginx::service': 
+  class { 'nginx::service':
     configtest_enable => $configtest_enable,
     service_restart => $service_restart,
   }
